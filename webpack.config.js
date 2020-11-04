@@ -85,7 +85,7 @@ module.exports = {
 			new WebpackModules()
 		],
 		performance: {
-			hints: false // it doesn't matter if server.js is large
+			hints: false // it doesn't matter if backend.js is large
 		}
 	},
 
