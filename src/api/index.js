@@ -1,6 +1,6 @@
-import { db, auth } from "../firebase";
+import { db, auth, serverTimestamp } from "../firebase";
 
-import {JOBS_COLLECTION} from "./constants";
+import {JOBS_COLLECTION, USERS_COLLECTION} from "../utils/constants";
 
 /**
  * Refresh the token manually after 55 mins since it is
@@ -15,6 +15,20 @@ export const forceTokenRefresh = () => {
 
     return auth.currentUser.getIdToken(true);
   }
+}
+
+export const saveUserToFirestore = (uid, email, name) => {
+  const timestamp = serverTimestamp();
+  return db.collection(USERS_COLLECTION).doc(uid).set({
+    id: uid,
+    email,
+    name,
+    created: timestamp
+  }, { merge: true });
+}
+
+export const registerUser = (email, password) => {
+  return auth.createUserWithEmailAndPassword(email, password);
 }
 
 export const signInUser = (email, password) => {
@@ -48,7 +62,6 @@ export const getAllJobs = async () => {
       .orderBy('timestamp', 'desc')
       .get();
   let docs = []
-  console.log('docs',query.size)
   if (query.empty) return docs;
   query.forEach(doc => {
     docs = [...docs, doc.data()]

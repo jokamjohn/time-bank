@@ -1,38 +1,48 @@
 <script context="module">
   import {ROUTE_DASHBOARD} from "../utils/constants";
+
   export async function preload(page, session) {
-    const { user } = session;
+    const {user} = session;
 
     if (user) {
       return this.redirect(302, ROUTE_DASHBOARD);
     }
 
-    return {  };
+    return {};
   }
 
 </script>
 
 <script>
-  import { onMount } from 'svelte';
-  import { goto } from '@sapper/app';
+  import {onMount} from 'svelte';
+  import {goto} from '@sapper/app';
+  import Error from '../components/error';
+  import {getFirebaseLoginError} from "./_helpers";
 
   let API;
 
   onMount(async () => {
-    API = await import('../utils/firebase');
+    API = await import('../api');
   })
 
   let email = '';
   let password = '';
   let error = '';
 
+  $:isButtonDisabled = !email || !password;
+
   async function login() {
     try {
       await API.signInUser(email, password);
+      error = '';
       goto(ROUTE_DASHBOARD);
     } catch (e) {
-      error = e.message;
-      console.log('login error', e)
+      const err = getFirebaseLoginError(e);
+      if (err) {
+        error = err;
+      } else {
+        error = 'Something wrong happened while logging you in'
+      }
     }
   }
 
@@ -46,6 +56,10 @@
 <div class="main">
     <h1>Login</h1>
 
+    {#if error}
+        <Error errorMessages={error}/>
+    {/if}
+
     <div>
         <form action="" on:submit|preventDefault>
             <div>
@@ -58,12 +72,12 @@
             <div>
                 <label for="password">
                     Password:
-                    <input id="password" type="password"  bind:value={password}>
+                    <input id="password" type="password" bind:value={password}>
                 </label>
             </div>
 
             <div>
-                <button type="submit" class="submit" on:click={login}>Sign In</button>
+                <button type="submit" class="submit" on:click={login} disabled={isButtonDisabled}>Sign In</button>
             </div>
         </form>
     </div>

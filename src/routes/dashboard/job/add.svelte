@@ -19,7 +19,7 @@
   let API;
 
   onMount(async () => {
-    API = await import('../../../utils/firebase');
+    API = await import('../../../api');
   })
 
   export let user;

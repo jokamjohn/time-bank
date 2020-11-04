@@ -6,7 +6,7 @@
 	let API;
 
 	onMount(async () => {
-		API = await import('../utils/firebase');
+		API = await import('../api');
 	})
 
 	export let segment;
@@ -25,9 +25,8 @@
 			<li><button on:click={logout}>logout</button></li>
 		{:else}
 			<li><a aria-current="{segment === 'login' ? 'page' : undefined}" href="login">Sign In</a></li>
+			<li><a aria-current="{segment === 'signup' ? 'page' : undefined}" href="signup">Sign Up</a></li>
 		{/if}
-		<li><a aria-current="{segment === 'about' ? 'page' : undefined}" href="about">about</a></li>
-
 		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
 		     the blog data when we hover over the link or tap it on a touchscreen -->
 <!--		<li><a rel=prefetch aria-current="{segment === 'blog' ? 'page' : undefined}" href="blog">blog</a></li>-->

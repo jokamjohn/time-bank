@@ -11,9 +11,9 @@
 
 	onMount(async () => {
 		const fb = await import('../firebase');
-		const API = await import('../utils/firebase');
-		fb.auth.onIdTokenChanged(async function(user) {
+		const API = await import('../api');
 
+		fb.auth.onIdTokenChanged(async function(user) {
 			if (!user) {
 				$session.user = false;
 				Cookies.set(COOKIE_DETAILS, false);
