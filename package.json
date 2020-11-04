@@ -6,11 +6,13 @@
     "dev": "sapper dev --hot=false",
     "build": "sapper build",
     "export": "sapper export",
-    "start": "node __sapper__/build"
+    "start": "node __sapper__/build",
+    "vercel": "vercel dev"
   },
   "dependencies": {
     "compression": "^1.7.1",
     "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
     "firebase": "^8.0.0",
     "js-cookie": "^2.2.1",
     "polka": "^0.5.2",

@@ -19,7 +19,7 @@
   let jobs = []
 
   onMount(async () => {
-    const API = await import('../../utils/firebase')
+    const API = await import('../../api')
     try {
       jobs = await API.getAllJobs();
     } catch (e) {

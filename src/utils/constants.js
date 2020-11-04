@@ -9,3 +9,4 @@ export const ROUTE_LOGIN = '/login';
 
 //Collections
 export const JOBS_COLLECTION = 'jobs'
+export const USERS_COLLECTION = 'users'

@@ -201,7 +201,7 @@ function updateWebpackConfig() {
 			/hydratable: true(?!,\n\s*preprocess)/g,
 			'hydratable: true,\n\t\t\t\t\t\t\tpreprocess: sveltePreprocess()'
 		],
-		// Add TypeScript rules for client and server
+		// Add TypeScript rules for client and backend
 		[
 			/module: {\n\s*rules: \[\n\s*(?!{\n\s*test: \/\\\.ts\$\/)/g,
 			`module: {\n\t\t\trules: [\n\t\t\t\t{\n\t\t\t\t\ttest: /\\.ts$/,\n\t\t\t\t\tloader: 'ts-loader'\n\t\t\t\t},\n\t\t\t\t`

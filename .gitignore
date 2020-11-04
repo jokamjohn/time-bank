@@ -4,3 +4,7 @@
 yarn-error.log
 /__sapper__/
 .idea
+.env
+service-account.json
+
+.vercel
